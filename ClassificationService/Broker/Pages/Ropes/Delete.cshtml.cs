@@ -28,7 +28,7 @@ namespace Broker.Pages.Ropes
                 return NotFound();
             }
 
-            Rope = await _context.Rope.FirstOrDefaultAsync(m => m.ID == id);
+            Rope = await _context.Rope.FirstOrDefaultAsync(m => m.RopeID == id);
 
             if (Rope == null)
             {

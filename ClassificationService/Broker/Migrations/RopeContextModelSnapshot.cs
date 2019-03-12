@@ -27,13 +27,33 @@ namespace Broker.Migrations
 
                     b.Property<DateTime>("CaptureDate");
 
-                    b.Property<int>("ShipID");
+                    b.Property<int?>("ShipID1");
 
                     b.Property<string>("Tag");
 
                     b.HasKey("ID");
 
+                    b.HasIndex("ShipID1");
+
                     b.ToTable("Rope");
+                });
+
+            modelBuilder.Entity("Broker.Models.Ship", b =>
+                {
+                    b.Property<int>("ShipID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("ShipID");
+
+                    b.ToTable("Ship");
+                });
+
+            modelBuilder.Entity("Broker.Models.Rope", b =>
+                {
+                    b.HasOne("Broker.Models.Ship", "ShipID")
+                        .WithMany("Ropes")
+                        .HasForeignKey("ShipID1");
                 });
 #pragma warning restore 612, 618
         }

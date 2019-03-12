@@ -14,5 +14,7 @@ namespace Broker.Models
         }
 
         public DbSet<Broker.Models.Rope> Rope { get; set; }
+
+        
     }
 }

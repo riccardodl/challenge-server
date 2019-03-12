@@ -18,6 +18,6 @@ namespace Broker.Models
         [Display(Name = "Capture Date")]
         [DataType(DataType.Date)]
         public DateTime CaptureDate { get; set; }
-        public Ship Ship { get; set; }        
+        public Ship ShipID { get; set; }        
     }
 }

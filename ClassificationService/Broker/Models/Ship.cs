@@ -7,7 +7,7 @@ namespace Broker.Models
 {
     public class Ship
     {
-        public int ID { get; set; }
+        public int ShipID { get; set; }
         public ICollection<Rope> Ropes { get; set; }
     }
 }

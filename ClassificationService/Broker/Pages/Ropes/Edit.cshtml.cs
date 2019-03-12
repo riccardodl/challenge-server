@@ -29,7 +29,7 @@ namespace Broker.Pages.Ropes
                 return NotFound();
             }
 
-            Rope = await _context.Rope.FirstOrDefaultAsync(m => m.ID == id);
+            Rope = await _context.Rope.FirstOrDefaultAsync(m => m.RopeID == id);
 
             if (Rope == null)
             {
@@ -53,7 +53,7 @@ namespace Broker.Pages.Ropes
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RopeExists(Rope.ID))
+                if (!RopeExists(Rope.RopeID))
                 {
                     return NotFound();
                 }
@@ -68,7 +68,7 @@ namespace Broker.Pages.Ropes
 
         private bool RopeExists(int id)
         {
-            return _context.Rope.Any(e => e.ID == id);
+            return _context.Rope.Any(e => e.RopeID == id);
         }
     }
 }
