@@ -1,8 +1,6 @@
 ﻿@page "{id:int?}"
 @model BackendService.Pages.Ships.DetailsModel
 
-@using BackendService.Models
-
 @{
     ViewData["Title"] = "Details";
 }
@@ -27,23 +25,23 @@
                 </tr>
                 @foreach (var rope in Model.Ship.Ropes)
                 {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => rope.AddedOn)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => rope.Probability)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => rope.Tag)
-                    </td>
-                    @foreach (var image in rope.Images)
-                    {
-                    <td>                        
-                            @Html.DisplayFor(modelItem => Image.FromByteArray(image.RawImage) )                        
-                    </td>
-                    }
-                </tr>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => rope.AddedOn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => rope.Probability)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => rope.Tag)
+                        </td>
+                        @foreach (var image in rope.Images)
+                        {
+                            <td>
+                                @Html.DisplayFor(modelItem => image.RawImage)
+                            </td>
+                        }
+                    </tr>
                 }
             </table>
         </dd>
