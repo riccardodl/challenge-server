@@ -12,9 +12,9 @@ namespace Broker.Pages.Ropes
 {
     public class IndexModel : PageModel
     {
-        private readonly Broker.Models.RopeContext _context;
+        private readonly Broker.Models.ShipContext _context;
 
-        public IndexModel(Broker.Models.RopeContext context)
+        public IndexModel(Broker.Models.ShipContext context)
         {
             _context = context;
         }
@@ -28,13 +28,13 @@ namespace Broker.Pages.Ropes
 
         public async Task OnGetAsync()
         {
-            var ropes = from r in _context.Rope select r;
+            var ropes = from r in _context.Ropes select r;
             if (!string.IsNullOrEmpty(SearchString))
-            {
-                ropes = ropes.Where(s => s.Tag.Contains(SearchString));
+            {                
+                ropes = ropes.Where(s => s.Ship.Name.Contains(SearchString));
             }
 
-            Rope = await _context.Rope.ToListAsync();
+            Rope = await _context.Ropes.ToListAsync();
         }
     }
 }

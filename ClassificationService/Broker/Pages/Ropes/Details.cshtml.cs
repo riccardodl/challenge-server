@@ -11,9 +11,9 @@ namespace Broker.Pages.Ropes
 {
     public class DetailsModel : PageModel
     {
-        private readonly Broker.Models.RopeContext _context;
+        private readonly Broker.Models.ShipContext _context;
 
-        public DetailsModel(Broker.Models.RopeContext context)
+        public DetailsModel(Broker.Models.ShipContext context)
         {
             _context = context;
         }
@@ -27,7 +27,7 @@ namespace Broker.Pages.Ropes
                 return NotFound();
             }
 
-            Rope = await _context.Rope.FirstOrDefaultAsync(m => m.RopeID == id);
+            Rope = await _context.Ropes.FirstOrDefaultAsync(m => m.RopeID == id);
 
             if (Rope == null)
             {

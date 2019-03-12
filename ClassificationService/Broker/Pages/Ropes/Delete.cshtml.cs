@@ -11,9 +11,9 @@ namespace Broker.Pages.Ropes
 {
     public class DeleteModel : PageModel
     {
-        private readonly Broker.Models.RopeContext _context;
+        private readonly Broker.Models.ShipContext _context;
 
-        public DeleteModel(Broker.Models.RopeContext context)
+        public DeleteModel(Broker.Models.ShipContext context)
         {
             _context = context;
         }
@@ -28,7 +28,7 @@ namespace Broker.Pages.Ropes
                 return NotFound();
             }
 
-            Rope = await _context.Rope.FirstOrDefaultAsync(m => m.RopeID == id);
+            Rope = await _context.Ropes.FirstOrDefaultAsync(m => m.RopeID == id);
 
             if (Rope == null)
             {
@@ -44,11 +44,11 @@ namespace Broker.Pages.Ropes
                 return NotFound();
             }
 
-            Rope = await _context.Rope.FindAsync(id);
+            Rope = await _context.Ropes.FindAsync(id);
 
             if (Rope != null)
             {
-                _context.Rope.Remove(Rope);
+                _context.Ropes.Remove(Rope);
                 await _context.SaveChangesAsync();
             }
 

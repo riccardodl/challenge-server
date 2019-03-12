@@ -12,9 +12,9 @@ namespace Broker.Pages.Ropes
 {
     public class EditModel : PageModel
     {
-        private readonly Broker.Models.RopeContext _context;
+        private readonly Broker.Models.ShipContext _context;
 
-        public EditModel(Broker.Models.RopeContext context)
+        public EditModel(Broker.Models.ShipContext context)
         {
             _context = context;
         }
@@ -29,7 +29,7 @@ namespace Broker.Pages.Ropes
                 return NotFound();
             }
 
-            Rope = await _context.Rope.FirstOrDefaultAsync(m => m.RopeID == id);
+            Rope = await _context.Ropes.FirstOrDefaultAsync(m => m.RopeID == id);
 
             if (Rope == null)
             {
@@ -68,7 +68,7 @@ namespace Broker.Pages.Ropes
 
         private bool RopeExists(int id)
         {
-            return _context.Rope.Any(e => e.RopeID == id);
+            return _context.Ropes.Any(e => e.RopeID == id);
         }
     }
 }

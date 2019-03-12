@@ -11,9 +11,9 @@ namespace Broker.Pages.Ropes
 {
     public class CreateModel : PageModel
     {
-        private readonly Broker.Models.RopeContext _context;
+        private readonly Broker.Models.ShipContext _context;
 
-        public CreateModel(Broker.Models.RopeContext context)
+        public CreateModel(Broker.Models.ShipContext context)
         {
             _context = context;
         }
@@ -33,7 +33,7 @@ namespace Broker.Pages.Ropes
                 return Page();
             }
 
-            _context.Rope.Add(Rope);
+            _context.Ropes.Add(Rope);
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
