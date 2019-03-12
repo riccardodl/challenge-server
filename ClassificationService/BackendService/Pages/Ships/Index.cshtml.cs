@@ -17,12 +17,35 @@ namespace BackendService.Pages.Ships
         {
             _context = context;
         }
+        public string NameSort { get; set; }        
+        public string CurrentFilter { get; set; }
+        //public string CurrentSort { get; set; }
 
         public IList<Ship> Ship { get;set; }
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string sortOrder, string searchString)
         {
-            Ship = await _context.Ship.ToListAsync();
+            NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            CurrentFilter = searchString;
+
+            IQueryable<Ship> shipQ = from s 
+                                         in _context.Ship
+                                         select s;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                shipQ = shipQ.Where(s => s.Name.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    shipQ = shipQ.OrderByDescending(s => s.Name);
+                    break;
+                default:
+                    shipQ = shipQ.OrderBy(s => s.Name);
+                    break;
+            }
+
+            Ship = await shipQ.AsNoTracking().ToListAsync();
         }
     }
 }

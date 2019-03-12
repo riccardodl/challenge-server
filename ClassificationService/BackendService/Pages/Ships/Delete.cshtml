@@ -1,4 +1,4 @@
-﻿@page "{id:int?}"
+﻿@page "{id:int}/{UnsavedChangesError:bool?}"
 @model BackendService.Pages.Ships.DeleteModel
 
 @{
@@ -7,6 +7,7 @@
 
 <h1>Delete</h1>
 
+<p class="text-danger">@Model.Error</p>
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <h4>Ship</h4>
@@ -19,7 +20,7 @@
             @Html.DisplayFor(model => model.Ship.Name)
         </dd>
     </dl>
-    
+
     <form method="post">
         <input type="hidden" asp-for="Ship.ShipID" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

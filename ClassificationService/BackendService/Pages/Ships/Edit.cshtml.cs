@@ -38,12 +38,26 @@ namespace BackendService.Pages.Ships
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
+            //FindAsync makes the DB callonly if the entity in the context has changed
+            Ship = await _context.Ship.FindAsync(id);
+
+            if (await TryUpdateModelAsync<Ship>(
+                Ship,
+                "Ship",
+                s => s.Name))
+            {
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
+            }
+
+
+
 
             _context.Attach(Ship).State = EntityState.Modified;
 
