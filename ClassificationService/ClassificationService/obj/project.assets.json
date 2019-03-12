@@ -12993,11 +12993,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\maros\\Documents\\Visual Studio 2017\\Projects\\ClassificationService\\ClassificationService\\ClassificationService.csproj",
+      "projectUniqueName": "C:\\Users\\maros\\Documents\\GitHub\\challenge-server\\ClassificationService\\ClassificationService\\ClassificationService.csproj",
       "projectName": "ClassificationService",
-      "projectPath": "C:\\Users\\maros\\Documents\\Visual Studio 2017\\Projects\\ClassificationService\\ClassificationService\\ClassificationService.csproj",
+      "projectPath": "C:\\Users\\maros\\Documents\\GitHub\\challenge-server\\ClassificationService\\ClassificationService\\ClassificationService.csproj",
       "packagesPath": "C:\\Users\\maros\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\maros\\Documents\\Visual Studio 2017\\Projects\\ClassificationService\\ClassificationService\\obj\\",
+      "outputPath": "C:\\Users\\maros\\Documents\\GitHub\\challenge-server\\ClassificationService\\ClassificationService\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
