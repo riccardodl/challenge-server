@@ -27,7 +27,13 @@ namespace BackendService.Pages.Ships
                 return NotFound();
             }
 
-            Ship = await _context.Ship.FirstOrDefaultAsync(m => m.ShipID == id);
+            //Ship = await _context.Ship.FirstOrDefaultAsync(m => m.ShipID == id);
+            //Consider tracking the entities, so we can modify them
+            Ship = await _context.Ship
+                                 .Include(s => s.Ropes)
+                                 .ThenInclude(r => r.Images)
+                                 .AsNoTracking()
+                                 .FirstOrDefaultAsync(m => m.ShipID == id);
 
             if (Ship == null)
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,5 +20,11 @@ namespace BackendService.Models
         
         public int RopeID { get; set; }
         public Rope Rope { get; set; }
+
+
+        public static Image FromByteArray(byte[] rawImg)
+        {
+            return FromByteArray(rawImg);
+        }
     }
 }
