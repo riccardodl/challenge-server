@@ -1,0 +1,50 @@
+﻿@page
+@model BackendService.Pages.Ropes.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Rope</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Rope.RopeID" />
+            <div class="form-group">
+                <label asp-for="Rope.Tag" class="control-label"></label>
+                <select asp-for="Rope.Tag" class="form-control"></select>
+                <span asp-validation-for="Rope.Tag" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rope.Probability" class="control-label"></label>
+                <input asp-for="Rope.Probability" class="form-control" />
+                <span asp-validation-for="Rope.Probability" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rope.AddedOn" class="control-label"></label>
+                <input asp-for="Rope.AddedOn" class="form-control" />
+                <span asp-validation-for="Rope.AddedOn" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rope.ShipID" class="control-label"></label>
+                <select asp-for="Rope.ShipID" class="form-control" asp-items="ViewBag.ShipID"></select>
+                <span asp-validation-for="Rope.ShipID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

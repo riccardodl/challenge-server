@@ -53,6 +53,11 @@ namespace BackendService.Data
             foreach (var i in images)
             {
                 context.Image.Add(i);
+                var rope = context.Rope.Where(x => i.RopeID == x.RopeID).SingleOrDefault();
+                if (rope != null)
+                {
+                    rope.Images.Add(i);
+                }
             }
             context.SaveChanges();
         }

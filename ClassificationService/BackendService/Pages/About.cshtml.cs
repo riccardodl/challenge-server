@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
-namespace BackendService.Pages.Ships
+namespace BackendService.Pages
 {
     public class AboutModel : PageModel
     {

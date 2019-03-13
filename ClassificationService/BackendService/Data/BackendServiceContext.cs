@@ -16,5 +16,11 @@ namespace BackendService.Models
         public DbSet<Ship> Ship { get; set; }
         public DbSet<Rope> Rope { get; set; }
         public DbSet<Image> Image { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Ship>().Property(s => s.Name).IsRequired();
+        }
+
     }
 }

@@ -68,3 +68,9 @@ C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendSe
 C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\BackendService.dll
 C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\BackendService.pdb
 C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\BackendService.csproj.CopyComplete
+C:\Users\ricca\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\Razor\Pages\About.g.cshtml.cs
+C:\Users\ricca\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\Razor\Pages\Ropes\Create.g.cshtml.cs
+C:\Users\ricca\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\Razor\Pages\Ropes\Delete.g.cshtml.cs
+C:\Users\ricca\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\Razor\Pages\Ropes\Details.g.cshtml.cs
+C:\Users\ricca\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\Razor\Pages\Ropes\Edit.g.cshtml.cs
+C:\Users\ricca\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\Razor\Pages\Ropes\Index.g.cshtml.cs

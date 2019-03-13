@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BackendService.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,7 +27,7 @@ namespace BackendService.Migrations
                 {
                     RopeID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Tag = table.Column<int>(nullable: true),
+                    Tag = table.Column<int>(nullable: false),
                     Probability = table.Column<double>(nullable: false),
                     AddedOn = table.Column<DateTime>(nullable: false),
                     ShipID = table.Column<int>(nullable: false)

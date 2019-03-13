@@ -1,0 +1,67 @@
+﻿@page
+@model BackendService.Pages.Ropes.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Ropes</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Rope[0].Tag)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rope[0].Probability)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rope[0].AddedOn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rope[0].Ship)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Rope)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tag)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Probability)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddedOn)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ship.Name)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.RopeID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.RopeID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.RopeID">Delete</a>
+                </td>
+                @if (item.Images != null)
+                {
+                    @foreach (var img in item.Images)
+                    {
+                    <tr>
+                        <td>
+                            <img src="data:image;base64,@System.Convert.ToBase64String(img.RawImage)" />
+                        </td>
+
+                    </tr>
+                    }
+                }
+                </tr>
+            }
+    </tbody>
+</table>

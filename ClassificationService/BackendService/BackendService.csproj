@@ -15,8 +15,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Pages\Images\" />
-    <Folder Include="Pages\Ropes\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

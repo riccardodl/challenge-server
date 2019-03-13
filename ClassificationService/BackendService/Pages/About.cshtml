@@ -1,0 +1,44 @@
+﻿@page
+@model BackendService.Pages.AboutModel
+@{
+    ViewData["Title"] = "About";
+}
+
+<h1>About</h1>
+
+<table class="table">
+    <tbody>
+        @foreach (var item in Model.Inspection)
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>@Html.DisplayFor(modelItem => item.ShipName)  </th>
+                    </tr>
+
+                    <tr>
+                        <th>
+                            Tag
+                        </th>
+                        <th>
+                            Count
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var tag in item.Tags)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => tag.Item1)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => tag.Item2)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </tbody>
+</table>

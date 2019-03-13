@@ -1,0 +1,60 @@
+﻿@page "{id:int?}"
+@model BackendService.Pages.Images.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Capture.Images.First().RawImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image[0].Width)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image[0].Height)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image[0].CaptureDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image[0].Rope)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Image) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RawImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Width)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Height)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CaptureDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rope.RopeID)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ImageID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ImageID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ImageID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

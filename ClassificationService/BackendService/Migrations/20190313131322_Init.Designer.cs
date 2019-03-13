@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BackendService.Migrations
 {
     [DbContext(typeof(BackendServiceContext))]
-    [Migration("20190312131702_Initial")]
-    partial class Initial
+    [Migration("20190313131322_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -60,7 +60,7 @@ namespace BackendService.Migrations
 
                     b.Property<int>("ShipID");
 
-                    b.Property<int?>("Tag");
+                    b.Property<int>("Tag");
 
                     b.HasKey("RopeID");
 

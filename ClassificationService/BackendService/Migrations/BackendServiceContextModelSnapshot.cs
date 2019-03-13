@@ -58,7 +58,7 @@ namespace BackendService.Migrations
 
                     b.Property<int>("ShipID");
 
-                    b.Property<int?>("Tag");
+                    b.Property<int>("Tag");
 
                     b.HasKey("RopeID");
 

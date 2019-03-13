@@ -22,14 +22,5 @@ namespace BackendService.Models
         public int RopeID { get; set; }
         public Rope Rope { get; set; }
 
-        //https://docs.microsoft.com/en-us/dotnet/api/system.drawing.imaging?redirectedfrom=MSDN&view=netframework-4.7.2#remarks
-        public static Bitmap FromByteArray(byte[] rawImg)
-        {
-            using (MemoryStream memoryStream = new MemoryStream(rawImg))
-            {
-                Bitmap image = (Bitmap)System.Drawing.Image.FromStream(memoryStream);                
-                return image;
-            }
-        }
     }
 }
