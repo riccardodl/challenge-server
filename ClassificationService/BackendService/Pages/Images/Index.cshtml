@@ -5,56 +5,105 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Capture.Images.First().RawImage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image[0].Width)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image[0].Height)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image[0].CaptureDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image[0].Rope)
+                Name
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Image) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.RawImage)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Width)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Height)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CaptureDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rope.RopeID)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ImageID">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.ImageID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ImageID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var ship in Model.Capture.Ships)
+        {
+            string selectedRow = "";
+            if (ship.ShipID == (int?)ViewData["ShipID"])
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @ship.Name
+                </td>
+                <td>
+                    <a asp-page="./Index" asp-route-id="@ship.ShipID">Select</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@if (Model.Capture.Ropes != null)
+{
+    <h3>Ropes belonging to the selected ship</h3>
+    <table class="table">
+        <tr>
+            <th>Rope ID</th>
+            <th>Probability</th>
+            <th>Tag</th>
+            <th>Added on</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.Capture.Ropes)
+        {
+            string selectedRow = "";
+            if (item.RopeID == (int?)ViewData["RopeID"])
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @item.RopeID
+                </td>
+                <td>
+                    @item.Probability
+                </td>
+                <td>
+                    @item.Tag
+                </td>
+                <td>
+                    @item.AddedOn
+                </td>
+                <td>
+                    <a asp-page="./Index" asp-route-rope="@item.RopeID">Select</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+}
+
+@if (Model.Capture.Images != null)
+{
+    <h3>Select Image</h3>
+    <table class="table">
+        <tr>
+            <th>Image ID</th>
+            <th>Image</th>
+            <th></th>
+        </tr>
+
+        @foreach (var img in Model.Capture.Images)
+        {
+            string selectedRow = "";
+            if (img.ImageID == (int?)ViewData["ImageID"])
+            {
+                selectedRow = "success";
+            }
+        <tr class="@selectedRow">
+            <td>
+                @img.ImageID
+            </td>
+            <td>
+                <img src="data:image;base64,@System.Convert.ToBase64String(img.RawImage)" />
+            </td>
+            <td>
+                <a asp-page="./Detect" asp-route-rope="@img.ImageID">Detection service</a>
+            </td>
+        </tr>
+        }
+
+    </table>
+}

@@ -20,25 +20,52 @@ namespace BackendService.Pages.Images
         }
                 
         public ImageRopeData Capture { get; set; }
-        public int ShipID { get; set; }
-        public int RopeID { get; set; }
-        public int ImageID { get; set; }
+        
 
-        public async Task OnGetAsync(int? ship, int? rope, int? image)
+        public async Task OnGetAsync(int? id, int? rope, int? image)
         {
             Capture = new ImageRopeData();
 
-            Capture.Ship = await _context.Ship
-                .Include(s => s.ShipID) 
-                .Include(s=>s.Name)                
-                .OrderBy(s=>s.Name)
+            Capture.Ships = await _context.Ship 
+                .Include(i=>i.Ropes)
+                    .ThenInclude(i => i.Images)                
                 .AsNoTracking()
                 .ToListAsync();
 
-            if (ShipID != null)
+            /*Capture.Ships = await _context.Ship 
+                .Include(i=>i.Ropes)
+                    .ThenInclude(i => i.Images)
+                .Include(i=>i.Images)
+                .AsNoTracking()
+                .ToListAsync();
+                */
+
+            if (id != null)
             {
-                ShipID = ship.Value;
+                ViewData["ShipID"] = id.Value;
+                //ShipID = id.Value;
+                Ship AShip = Capture.Ships
+                    .Where(s => s.ShipID == id.Value)
+                    .Single();
+                Capture.Ropes = AShip.Ropes.ToList();             
             }
+            if (rope != null)
+            {
+                ViewData["RopeID"] = rope.Value;
+                Capture.Images = Capture.Ropes
+                    .Where(r => r.RopeID == rope.Value).Single().Images;
+            }
+            if (image != null)
+            {
+                ViewData["ImageID"] = image.Value;
+                Image AImage = Capture.Images
+                    .Where(i => i.ImageID == image.Value)
+                    .Single();
+            }
+
+            
+
         }
+
     }
 }

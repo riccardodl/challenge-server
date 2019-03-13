@@ -8,7 +8,7 @@ namespace BackendService.Models.InspectionViewModels
     public class ImageRopeData
     {
 
-        public ICollection<Ship> Ship { get; set; }
+        public ICollection<Ship> Ships { get; set; }
         public IEnumerable<Rope> Ropes { get; set; }
         public ICollection<Image> Images { get; set; }
 
