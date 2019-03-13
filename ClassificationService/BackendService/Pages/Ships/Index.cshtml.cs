@@ -19,15 +19,24 @@ namespace BackendService.Pages.Ships
         }
         public string NameSort { get; set; }        
         public string CurrentFilter { get; set; }
-        //public string CurrentSort { get; set; }
+        public string CurrentSort { get; set; }
 
-        public IList<Ship> Ship { get;set; }
+        public PaginatedList<Ship> Ship { get;set; }
 
-        public async Task OnGetAsync(string sortOrder, string searchString)
+        public async Task OnGetAsync(string sortOrder, string searchString, string currentFilter, int? pageIndex)
         {
+            CurrentSort = sortOrder;
             NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             CurrentFilter = searchString;
 
+            if (searchString != null)
+            {
+                pageIndex = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
             IQueryable<Ship> shipQ = from s 
                                          in _context.Ship
                                          select s;
@@ -44,8 +53,9 @@ namespace BackendService.Pages.Ships
                     shipQ = shipQ.OrderBy(s => s.Name);
                     break;
             }
-
-            Ship = await shipQ.AsNoTracking().ToListAsync();
+            int pageSize = 10;
+            //Ship = await shipQ.AsNoTracking().ToListAsync();
+            Ship = await PaginatedList<Ship>.CreateAsync(shipQ.AsNoTracking(), pageIndex ?? 1, pageSize);
         }
     }
 }

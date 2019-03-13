@@ -19,7 +19,7 @@ namespace BackendService.Models
         [Display(Name = "ID")]
         public int RopeID { get; set; }
         [DisplayFormat(NullDisplayText = "No tag")]
-        public Tag? Tag { get; set; }
+        public Tag Tag { get; set; }
         public double Probability { get; set; }
 
         [Display(Name = "Date")]
