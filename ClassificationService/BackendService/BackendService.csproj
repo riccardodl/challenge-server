@@ -18,4 +18,11 @@
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Reference Include="CoreCallCustomVisionApi">
+      <HintPath>..\..\..\challenge\CoreCallCustomVisionApi\CoreCallCustomVisionApi\bin\Debug\CoreCallCustomVisionApi.exe</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

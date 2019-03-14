@@ -32,18 +32,9 @@ namespace BackendService.Pages.Images
                 .AsNoTracking()
                 .ToListAsync();
 
-            /*Capture.Ships = await _context.Ship 
-                .Include(i=>i.Ropes)
-                    .ThenInclude(i => i.Images)
-                .Include(i=>i.Images)
-                .AsNoTracking()
-                .ToListAsync();
-                */
-
             if (id != null)
             {
                 ViewData["ShipID"] = id.Value;
-                //ShipID = id.Value;
                 Ship AShip = Capture.Ships
                     .Where(s => s.ShipID == id.Value)
                     .Single();
@@ -52,8 +43,8 @@ namespace BackendService.Pages.Images
             if (rope != null)
             {
                 ViewData["RopeID"] = rope.Value;
-                Capture.Images = Capture.Ropes
-                    .Where(r => r.RopeID == rope.Value).Single().Images;
+                Capture.Images = Capture.Ropes.Where(r => r.RopeID == rope.Value)
+                    .Single().Images;
             }
             if (image != null)
             {
@@ -61,6 +52,7 @@ namespace BackendService.Pages.Images
                 Image AImage = Capture.Images
                     .Where(i => i.ImageID == image.Value)
                     .Single();
+                Capture.SpecificImg = AImage;
             }
 
             

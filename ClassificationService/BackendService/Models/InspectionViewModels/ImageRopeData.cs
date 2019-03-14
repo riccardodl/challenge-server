@@ -11,6 +11,6 @@ namespace BackendService.Models.InspectionViewModels
         public ICollection<Ship> Ships { get; set; }
         public IEnumerable<Rope> Ropes { get; set; }
         public ICollection<Image> Images { get; set; }
-
+        public Image SpecificImg { get; set; }
     }
 }

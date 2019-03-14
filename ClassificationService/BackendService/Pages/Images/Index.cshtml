@@ -67,7 +67,8 @@
                     @item.AddedOn
                 </td>
                 <td>
-                    <a asp-page="./Index" asp-route-rope="@item.RopeID">Select</a>
+                    <a asp-page="./Index"                       
+                       asp-route-rope="@ViewData["RopeID"]">Select</a>
                 </td>
             </tr>
         }
@@ -84,7 +85,6 @@
             <th>Image</th>
             <th></th>
         </tr>
-
         @foreach (var img in Model.Capture.Images)
         {
             string selectedRow = "";
@@ -92,18 +92,70 @@
             {
                 selectedRow = "success";
             }
-        <tr class="@selectedRow">
-            <td>
-                @img.ImageID
-            </td>
-            <td>
-                <img src="data:image;base64,@System.Convert.ToBase64String(img.RawImage)" />
-            </td>
-            <td>
-                <a asp-page="./Detect" asp-route-rope="@img.ImageID">Detection service</a>
-            </td>
-        </tr>
+            <tr class="@selectedRow">
+                <td>
+                    @img.ImageID
+                </td>
+                <td>
+                    <img src="data:image;base64,@System.Convert.ToBase64String(img.RawImage)" />
+                </td>
+                <td>
+                    <a asp-page="./Index"
+                       asp-route-id="@ViewData["ShipID"]"
+                       asp-route-rope="@ViewData["RopeID"]"
+                       asp-route-image="@ViewData["ImageID"]">Select</a>
+                </td>
+            </tr>
         }
-
     </table>
 }
+
+@if (Model.Capture.SpecificImg != null)
+{
+    <tr>
+        <td>
+            <button id="call_detect" type="button" onclick="detect()"
+                    ship="@ViewData["ShipID"]"
+                    rope="@ViewData["RopeID"]"
+                    img="@ViewData["ImageID"]">
+                function call
+            </button>
+        </td>
+
+        <td>
+            <a asp-page="./Index" asp-route-image="@ViewData["ImageID"]">Select</a>
+        </td>
+
+        <td>
+            <a asp-page="./api/CustomVisionServiceController"
+               asp-route-id="@ViewData["ShipID"]"
+               asp-route-rope="@ViewData["RopeID"]"
+               asp-route-img="@ViewData["ImageID"]">Detection service</a>
+        </td>
+
+    </tr>
+}
+
+
+
+
+<script>
+    $('#call_detect').click(function () {
+
+        var ship = $('#call_detect').attr("ship");
+        var rope = $('#call_detect').attr("rope");
+        var img = $('#call_detect').attr("img");
+        var data: { ship: 'ship', rope: 'rope', img: 'img' };
+        var data2 = "ship=" + ship + "&rope=" + rope + "&img" + img;
+        $.ajax({
+            type: "GET",
+            cache: false,
+            url: "./api/CustomVisionService",
+            data: data,
+            success: function (html) {
+
+                $('#call_detect').val('data sent');
+            }
+        });
+    }
+</script>
