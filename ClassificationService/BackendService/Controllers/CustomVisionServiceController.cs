@@ -35,11 +35,15 @@ namespace BackendService.Controllers
         }
 
         // GET api/<controller>/5/3/4
-        [HttpGet("[controller]/{ship:int}/{rope:int}/{img:int}")]
-        public async Task<string> Get(int ship, int rope, int img)
+        [HttpGet("[controller]/{ship:int?}/{rope:int?}/{img:int?}")]
+        public async Task<string> Get(int? ship, int? rope, int? img)
         {
-            var response = await _repository.MakePrediction(ship,rope,img);
-            return await response.Content.ReadAsStringAsync();
+            if (ship != null && rope != null && img != null)
+            {
+                var response = await _repository.MakePrediction(ship.Value, rope.Value, img.Value);
+                return await response.Content.ReadAsStringAsync();
+            }
+            return "Failure";
         }
 
         // POST api/<controller>

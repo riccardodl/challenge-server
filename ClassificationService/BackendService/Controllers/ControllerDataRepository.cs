@@ -16,9 +16,7 @@ namespace BackendService.Controllers
         public ControllerDataRepository(BackendServiceContext context)
         {
             _context = context;
-
         }
-
 
         public async Task<List<Ship>> GetShipsAsync()
         {
@@ -33,40 +31,19 @@ namespace BackendService.Controllers
 
         public ImageRopeData Capture { get; set; }
 
-        public async Task<HttpResponseMessage> MakePrediction(int? shipid, int? ropeid, int? imageid)
+        public async Task<HttpResponseMessage> MakePrediction(int shipid, int ropeid, int imageid)
         {
             HttpResponseMessage predictionResult = new HttpResponseMessage();
-            Capture = new ImageRopeData();
+            Image Image;
 
-            Capture.Ships = _context.Ship
-                .Include(i => i.Ropes)
-                    .ThenInclude(i => i.Images)
-                .AsNoTracking()
-                .ToList();
-
-            if (shipid != null)
-            {                
-                Ship AShip = Capture.Ships
-                    .Where(s => s.ShipID == shipid.Value)
-                    .Single();
-                Capture.Ropes = AShip.Ropes.ToList();
-            }
-            if (ropeid != null)
-            {                
-                Capture.Images = Capture.Ropes
-                    .Where(r => r.RopeID == ropeid.Value).Single().Images;
-            }
-            if (imageid != null)
-            {                
-                Capture.SpecificImg = Capture.Images
-                    .Where(i => i.ImageID == imageid.Value)
-                    .Single();
-            }
-
-            if (Capture.SpecificImg.RawImage != null)
+            var Ship = GetShipAsync(shipid);
+            if (Ship != null)
             {
-                predictionResult = await CoreCallCustomVisionApi.Program.PredictRawimage(Capture.SpecificImg.RawImage);
-                
+                Image = _context.Image.Where(i => i.ImageID == imageid && i.RopeID == ropeid).Single();
+                if (Image != null)
+                {
+                    predictionResult = await CoreCallCustomVisionApi.Program.PredictRawImage(Capture.SpecificImg.RawImage);
+                }
             }
             return predictionResult;
 

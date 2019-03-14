@@ -84,6 +84,7 @@
             <th>Image ID</th>
             <th>Image</th>
             <th></th>
+            <th></th>
         </tr>
         @foreach (var img in Model.Capture.Images)
         {
@@ -118,14 +119,12 @@
                             js function call
                         </button>
                     </td>
-
-
                     <td>
                         <a asp-controller="CustomVisionService"
                            asp-action="Get"
                            asp-route-ship="@ViewData["ShipID"]"
                            asp-route-rope="@ViewData["RopeID"]"
-                           asp-route-img="@ViewData["ImageID"]">asp-call  service</a>
+                           asp-route-img="@ViewData["ImageID"]">Detect</a>
                     </td>
 
                 </tr>
@@ -133,11 +132,6 @@
         }
     </table>
 }
-
-
-
-
-
 
 <script>
     $('#call_detect').click(function () {
