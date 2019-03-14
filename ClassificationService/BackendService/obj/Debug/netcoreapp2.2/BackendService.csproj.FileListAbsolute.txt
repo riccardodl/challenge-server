@@ -85,3 +85,4 @@ C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendSe
 C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\Razor\Pages\Ships\Delete.g.cshtml.cs
 C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\Razor\Pages\Ships\Details.g.cshtml.cs
 C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\Razor\Pages\Ships\Edit.g.cshtml.cs
+C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\Razor\Pages\Images\RopeAdditionPageModel.g.cshtml.cs
