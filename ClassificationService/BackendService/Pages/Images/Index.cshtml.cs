@@ -55,8 +55,6 @@ namespace BackendService.Pages.Images
                 Capture.SpecificImg = AImage;
             }
 
-            
-
         }
 
     }

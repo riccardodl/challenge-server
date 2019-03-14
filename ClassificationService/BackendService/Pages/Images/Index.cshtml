@@ -4,7 +4,7 @@
 @{
     ViewData["Title"] = "Index";
 }
-
+<h4>Select Ship</h4>
 <table class="table">
     <thead>
         <tr>
@@ -36,7 +36,7 @@
 
 @if (Model.Capture.Ropes != null)
 {
-    <h3>Ropes belonging to the selected ship</h3>
+    <h4>Select Rope</h4>
     <table class="table">
         <tr>
             <th>Rope ID</th>
@@ -78,7 +78,7 @@
 
 @if (Model.Capture.Images != null)
 {
-    <h3>Select Image</h3>
+    <h4>Select Image</h4>
     <table class="table">
         <tr>
             <th>Image ID</th>
@@ -106,32 +106,35 @@
                        asp-route-image="@img.ImageID">Select</a>
                 </td>
             </tr>
+
+            @if (Model.Capture.SpecificImg != null)
+            {
+                <tr>
+                    <td>
+                        <button id="call_detect" type="button" 
+                                ship="@ViewData["ShipID"]"
+                                rope="@ViewData["RopeID"]"
+                                img="@ViewData["ImageID"]">
+                            js function call
+                        </button>
+                    </td>
+
+
+                    <td>
+                        <a asp-controller="CustomVisionService"
+                           asp-action="Get"
+                           asp-route-ship="@ViewData["ShipID"]"
+                           asp-route-rope="@ViewData["RopeID"]"
+                           asp-route-img="@ViewData["ImageID"]">asp-call  service</a>
+                    </td>
+
+                </tr>
+            }
         }
     </table>
 }
 
-@if (Model.Capture.SpecificImg != null)
-{
-    <tr>
-        <td>
-            <button id="call_detect" type="button" onclick="detect()"
-                    ship="@ViewData["ShipID"]"
-                    rope="@ViewData["RopeID"]"
-                    img="@ViewData["ImageID"]">
-                js function call
-            </button>
-        </td>
 
-
-        <td>
-            <a asp-page="./api/CustomVisionServiceController"
-               asp-route-id="@ViewData["ShipID"]"
-               asp-route-rope="@ViewData["RopeID"]"
-               asp-route-img="@ViewData["ImageID"]">asp-call  service</a>
-        </td>
-
-    </tr>
-}
 
 
 

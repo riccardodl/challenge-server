@@ -21,9 +21,6 @@ namespace BackendService.Controllers
 
             _repository = repository;
         }
-
-
-
         // GET: api/<controller>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -38,7 +35,7 @@ namespace BackendService.Controllers
         }
 
         // GET api/<controller>/5/3/4
-        [HttpGet("[controller]/{ship}/{rope}/{img}")]
+        [HttpGet("[controller]/{ship:int}/{rope:int}/{img:int}")]
         public async Task<string> Get(int ship, int rope, int img)
         {
             var response = await _repository.MakePrediction(ship,rope,img);
