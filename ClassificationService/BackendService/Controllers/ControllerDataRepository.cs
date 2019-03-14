@@ -13,6 +13,8 @@ namespace BackendService.Controllers
     {
         private readonly BackendServiceContext _context;
 
+        public static double probability = 75.0;
+
         public ControllerDataRepository(BackendServiceContext context)
         {
             _context = context;
@@ -33,7 +35,7 @@ namespace BackendService.Controllers
 
         public async Task<HttpResponseMessage> MakePrediction(int shipid, int ropeid, int imageid)
         {
-            HttpResponseMessage predictionResult = new HttpResponseMessage();
+            IList<PredictionModel> predictionResult;
             Image Image;
 
             var Ship = GetShipAsync(shipid);
@@ -42,7 +44,7 @@ namespace BackendService.Controllers
                 Image = _context.Image.Where(i => i.ImageID == imageid && i.RopeID == ropeid).Single();
                 if (Image != null)
                 {
-                    predictionResult = await CoreCallCustomVisionApi.Program.PredictRawImage(Capture.SpecificImg.RawImage);
+                    predictionResult = CoreCallCustomVisionApi.Program.PredictRawImage(Capture.SpecificImg.RawImage);
                 }
             }
             return predictionResult;
