@@ -15,11 +15,9 @@ namespace BackendService.Controllers
     {
 
         private readonly ControllerDataRepository _repository;
-        private readonly BackendServiceContext _context;
 
-        public CustomVisionServiceController(BackendService.Controllers.ControllerDataRepository repository)//BackendServiceContext context)
+        public CustomVisionServiceController(BackendService.Controllers.ControllerDataRepository repository)
         {
-            //_context = context;
 
             _repository = repository;
         }

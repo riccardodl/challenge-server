@@ -14,7 +14,6 @@ namespace BackendService.Pages.Ships
     {
         private readonly BackendService.Models.BackendServiceContext _context;
         private readonly ILogger _logger;
-        private object services;
 
         public DeleteModel(BackendService.Models.BackendServiceContext context, ILogger<DeleteModel> logger)
         {

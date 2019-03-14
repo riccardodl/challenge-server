@@ -1,4 +1,4 @@
-﻿@page "{id:int?}"
+﻿@page 
 @model BackendService.Pages.Images.IndexModel
 
 @{
@@ -67,8 +67,8 @@
                     @item.AddedOn
                 </td>
                 <td>
-                    <a asp-page="./Index"                       
-                       asp-route-rope="@ViewData["RopeID"]">Select</a>
+                    <a asp-page="./Index" asp-route-id="@ViewData["ShipID"]"
+                       asp-route-rope="@item.RopeID">Select</a>
                 </td>
             </tr>
         }
@@ -103,7 +103,7 @@
                     <a asp-page="./Index"
                        asp-route-id="@ViewData["ShipID"]"
                        asp-route-rope="@ViewData["RopeID"]"
-                       asp-route-image="@ViewData["ImageID"]">Select</a>
+                       asp-route-image="@img.ImageID">Select</a>
                 </td>
             </tr>
         }
@@ -118,19 +118,16 @@
                     ship="@ViewData["ShipID"]"
                     rope="@ViewData["RopeID"]"
                     img="@ViewData["ImageID"]">
-                function call
+                js function call
             </button>
         </td>
 
-        <td>
-            <a asp-page="./Index" asp-route-image="@ViewData["ImageID"]">Select</a>
-        </td>
 
         <td>
             <a asp-page="./api/CustomVisionServiceController"
                asp-route-id="@ViewData["ShipID"]"
                asp-route-rope="@ViewData["RopeID"]"
-               asp-route-img="@ViewData["ImageID"]">Detection service</a>
+               asp-route-img="@ViewData["ImageID"]">asp-call  service</a>
         </td>
 
     </tr>
@@ -145,7 +142,7 @@
         var ship = $('#call_detect').attr("ship");
         var rope = $('#call_detect').attr("rope");
         var img = $('#call_detect').attr("img");
-        var data: { ship: 'ship', rope: 'rope', img: 'img' };
+        var data = { ship: "ship", rope: "rope", img: "img" };
         var data2 = "ship=" + ship + "&rope=" + rope + "&img" + img;
         $.ajax({
             type: "GET",
