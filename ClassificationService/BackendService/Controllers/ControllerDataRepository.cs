@@ -6,34 +6,52 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Net.Http;
 using System;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace BackendService.Controllers
 {
     public class ControllerDataRepository
     {
         private readonly BackendServiceContext _context;
+        private readonly ILogger _logger;
 
         public static double probability = 75.0;
 
-        public ControllerDataRepository(BackendServiceContext context)
+        public ControllerDataRepository(BackendServiceContext context, ILogger logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         public async Task<List<Ship>> GetShipsAsync()
         {
             return await _context.Ship.ToListAsync();
         }
-
+        public async Task<Ship> GetShipAsync(int id)
+        {
+            return await _context.Ship.FindAsync(id);
+        }
+        
         public async Task<Rope> GetRopeAsync(int shipid, int ropeid)
         {
             return await _context.Rope.Where(r=>r.ShipID == shipid && r.RopeID == ropeid).SingleAsync();
         }
 
-
-        public async Task<Ship> GetShipAsync(int id)
+        public async Task<bool> DeleteImageAsync(int id)
         {
-            return await _context.Ship.FindAsync(id);
+            try
+            {
+                var elem = await _context.Image.FindAsync(id);
+            _context.Image.Remove(elem);
+            await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                _logger.LogError(ex, "Couldn't apply deletion.");
+                return false;
+            }
+            return true;
         }
 
         public ImageRopeData Capture { get; set; }
