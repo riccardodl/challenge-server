@@ -41,5 +41,12 @@ namespace BackendService.Models
         public int ShipID { get; set; }
         public Ship Ship { get; set; }
 
+        public Rope()
+        {
+            Tag = Tag.unspecified;
+            Probability = -1;
+            AddedOn = DateTime.Now;
+            Images = new List<Image>();
+        }
     }
 }

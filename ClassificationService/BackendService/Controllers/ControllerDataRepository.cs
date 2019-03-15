@@ -18,10 +18,10 @@ namespace BackendService.Controllers
 
         public static double probability = 75.0;
 
-        public ControllerDataRepository(BackendServiceContext context, ILogger logger)
+        public ControllerDataRepository(BackendServiceContext context)
         {
             _context = context;
-            _logger = logger;
+            //_logger = logger;
         }
 
         public async Task<List<Ship>> GetShipsAsync()
@@ -38,6 +38,41 @@ namespace BackendService.Controllers
             return await _context.Rope.Where(r=>r.ShipID == shipid && r.RopeID == ropeid).SingleAsync();
         }
 
+        public async Task<bool> AddImageAsync(int ship, int? rope, Image img)
+        {
+            Rope TargetRope;
+            if (img.RawImage != null)
+            {                
+                if (rope==null)
+                {
+                    var Ship = await GetShipAsync(ship);
+                    if (Ship != null)
+                    {
+                        TargetRope = new Rope() { ShipID = rope.Value };
+                        _context.Rope.Add(TargetRope);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    TargetRope = await GetRopeAsync(ship, rope.Value);
+                    if (TargetRope == null)
+                    {
+                        return false;
+                    }
+                }
+                img.RopeID = TargetRope.RopeID;
+                _context.Image.Add(img);
+                TargetRope.Images.Add(img);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
         public async Task<bool> DeleteImageAsync(int id)
         {
             try
@@ -48,7 +83,7 @@ namespace BackendService.Controllers
             }
             catch (DbUpdateException ex)
             {
-                _logger.LogError(ex, "Couldn't apply deletion.");
+                //_logger.LogError(ex, "Couldn't apply deletion.");
                 return false;
             }
             return true;
@@ -56,12 +91,12 @@ namespace BackendService.Controllers
 
         public ImageRopeData Capture { get; set; }
 
-        public KeyValuePair<string,double> MakePrediction(int shipid, int ropeid, int imageid)
+        public async Task<KeyValuePair<string,double>> MakePrediction(int shipid, int ropeid, int imageid)
         {
             Dictionary<string, double> predictionRes = new Dictionary<string, double>();
             Image Image;
 
-            var Ship = GetShipAsync(shipid);
+            var Ship = await GetShipAsync(shipid);
             if (Ship != null)
             {
                 Image = _context.Image.Where(i => i.ImageID == imageid && i.RopeID == ropeid).Single();
@@ -74,7 +109,7 @@ namespace BackendService.Controllers
                     {
                         var tmp = res.Split(": ");
                         
-                        predictionRes.Add(tmp[0].Remove(0,2), Convert.ToDouble(tmp[1].Replace("%","")));
+                        predictionRes.Add(tmp[0].Remove(0,1), Convert.ToDouble(tmp[1].Replace("%","")));
                     }
                 }
             }

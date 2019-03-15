@@ -44,7 +44,7 @@ namespace BackendService.Controllers
         {
             if (ship != null && rope != null && img != null)
             {
-                var response = _repository.MakePrediction(ship.Value, rope.Value, img.Value);
+                var response = await _repository.MakePrediction(ship.Value, rope.Value, img.Value);
                 if (response.Key != null)
                 {
                     var target = await _repository.GetRopeAsync(ship.Value, rope.Value);                    
@@ -58,31 +58,38 @@ namespace BackendService.Controllers
             return NotFound();
         }
 
-        // POST api/<controller>
-        [HttpPost]
-        public Task<IActionResult> Post([FromBody]string value)
+        // POST api/<controller>/shipid => Body: Image
+        [HttpPost("[controller]/{ship:int?}/{rope:int?}")]
+        public async Task<IActionResult> Post(int ship, int? rope, [FromBody]Image img)
         {
             if (Request.HasFormContentType && Request.ContentType == "application/octet-stream")
             {
                 MemoryStream stream = new MemoryStream();
                 await Request.Body.CopyToAsync(stream);
 
-                      /*
-                        System.IO.Image image = Image.FromStream(stream);
-                        var testName = content.Headers.ContentDisposition.Name;
-                        String filePath = HostingEnvironment.MapPath("~/Images/");
-                        String[] headerValues = (String[])Request.Headers.GetValues("UniqueId");
-                        String fileName = headerValues[0] + ".jpg";
-                        String fullPath = Path.Combine(filePath, fileName);
-                        image.Save(fullPath);*/
-                 
+                /*
+                  System.IO.Image image = Image.FromStream(stream);
+                  var testName = content.Headers.ContentDisposition.Name;
+                  String filePath = HostingEnvironment.MapPath("~/Images/");
+                  String[] headerValues = (String[])Request.Headers.GetValues("UniqueId");
+                  String fileName = headerValues[0] + ".jpg";
+                  String fullPath = Path.Combine(filePath, fileName);
+                  image.Save(fullPath);*/
+                var res = await _repository.AddImageAsync(ship, rope, img);
+                if (!res)
+                {
+                    return NotFound();
+                }
+                return Ok();
             }
+            return BadRequest();
         }
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody]string value)
         {
+            // image recognition service, return tag and probability
         }
 
         // DELETE api/<controller>/5
