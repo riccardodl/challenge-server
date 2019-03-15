@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using BackendService.Models;
 using Microsoft.AspNetCore.Http;
 using BackendService.Controllers;
+using System;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -36,14 +37,22 @@ namespace BackendService.Controllers
 
         // GET api/<controller>/5/3/4
         [HttpGet("[controller]/{ship:int?}/{rope:int?}/{img:int?}")]
-        public async Task<string> Get(int? ship, int? rope, int? img)
+        public async Task<ActionResult<string>> Get(int? ship, int? rope, int? img)
         {
             if (ship != null && rope != null && img != null)
             {
-                var response = await _repository.MakePrediction(ship.Value, rope.Value, img.Value);
-                return await response.Content.ReadAsStringAsync();
+                var response = _repository.MakePrediction(ship.Value, rope.Value, img.Value);
+                if (response.Key != null)
+                {
+                    var target = await _repository.GetRopeAsync(ship.Value, rope.Value);                    
+                    Enum.TryParse(response.Key, out Tag t);
+                    target.Tag = t;
+                    target.Probability = response.Value;
+                    return Ok(response);
+                }               
+                return NoContent();
             }
-            return "Failure";
+            return NotFound();
         }
 
         // POST api/<controller>

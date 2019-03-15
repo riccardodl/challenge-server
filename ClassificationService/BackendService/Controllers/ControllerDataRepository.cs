@@ -3,9 +3,9 @@ using BackendService.Models.InspectionViewModels;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using CoreCallCustomVisionApi;
 using System.Linq;
 using System.Net.Http;
+using System;
 
 namespace BackendService.Controllers
 {
@@ -25,6 +25,11 @@ namespace BackendService.Controllers
             return await _context.Ship.ToListAsync();
         }
 
+        public async Task<Rope> GetRopeAsync(int shipid, int ropeid)
+        {
+            return await _context.Rope.Where(r=>r.ShipID == shipid && r.RopeID == ropeid).SingleAsync();
+        }
+
 
         public async Task<Ship> GetShipAsync(int id)
         {
@@ -33,9 +38,9 @@ namespace BackendService.Controllers
 
         public ImageRopeData Capture { get; set; }
 
-        public async Task<HttpResponseMessage> MakePrediction(int shipid, int ropeid, int imageid)
+        public KeyValuePair<string,double> MakePrediction(int shipid, int ropeid, int imageid)
         {
-            IList<PredictionModel> predictionResult;
+            Dictionary<string, double> predictionRes = new Dictionary<string, double>();
             Image Image;
 
             var Ship = GetShipAsync(shipid);
@@ -44,10 +49,23 @@ namespace BackendService.Controllers
                 Image = _context.Image.Where(i => i.ImageID == imageid && i.RopeID == ropeid).Single();
                 if (Image != null)
                 {
-                    predictionResult = CoreCallCustomVisionApi.Program.PredictRawImage(Capture.SpecificImg.RawImage);
+                    //List<string> predictionResult = new List<string>();
+                    var predictionResult = CV.Program.PredictRawImage(Image.RawImage).ToList();
+
+                    foreach(var res in predictionResult)
+                    {
+                        var tmp = res.Split(": ");
+                        
+                        predictionRes.Add(tmp[0].Remove(0,2), Convert.ToDouble(tmp[1].Replace("%","")));
+                    }
                 }
             }
-            return predictionResult;
+            predictionRes.OrderByDescending(x => x.Value);
+            if (predictionRes.First().Value > probability)
+            {
+                return predictionRes.First();
+            }
+            return new KeyValuePair<string, double>();
 
         }
     }

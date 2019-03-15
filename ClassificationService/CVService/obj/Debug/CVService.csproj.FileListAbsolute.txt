@@ -1,0 +1,2 @@
+C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\CVService\obj\Debug\CVService.csprojAssemblyReference.cache
+C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\CVService\obj\Debug\CVService.csproj.CoreCompileInputs.cache

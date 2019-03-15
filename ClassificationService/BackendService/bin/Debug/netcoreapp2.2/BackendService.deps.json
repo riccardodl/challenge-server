@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.2",
-    "signature": "8fae41ddf7e533f317a801fc7c86b3f44c679e05"
+    "signature": "38759d7454d666ae54d3952dd5484666e1b9c677"
   },
   "compilationOptions": {
     "defines": [
@@ -26,16 +26,54 @@
         "dependencies": {
           "Microsoft.AspNetCore.App": "2.2.0",
           "Microsoft.AspNetCore.Razor.Design": "2.2.0",
+          "Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction": "0.12.0-preview",
+          "Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training": "0.13.0-preview",
           "Microsoft.NETCore.App": "2.2.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.2.0",
           "System.Drawing.Common": "4.6.0-preview3.19128.7",
-          "CoreCallCustomVisionApi": "1.0.0.0"
+          "CV": "1.0.0.0"
         },
         "runtime": {
           "BackendService.dll": {}
         },
         "compile": {
           "BackendService.dll": {}
+        }
+      },
+      "Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction/0.12.0-preview": {
+        "dependencies": {
+          "Microsoft.Rest.ClientRuntime": "2.3.17",
+          "Microsoft.Rest.ClientRuntime.Azure": "3.3.18",
+          "NETStandard.Library": "2.0.3",
+          "Newtonsoft.Json": "11.0.2",
+          "System.Net.Http": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.4/Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.dll": {
+            "assemblyVersion": "0.12.0.0",
+            "fileVersion": "0.12.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard1.4/Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.dll": {}
+        }
+      },
+      "Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training/0.13.0-preview": {
+        "dependencies": {
+          "Microsoft.Rest.ClientRuntime": "2.3.17",
+          "Microsoft.Rest.ClientRuntime.Azure": "3.3.18",
+          "NETStandard.Library": "2.0.3",
+          "Newtonsoft.Json": "11.0.2",
+          "System.Net.Http": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.4/Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.dll": {
+            "assemblyVersion": "0.13.0.0",
+            "fileVersion": "0.13.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard1.4/Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.dll": {}
         }
       },
       "Microsoft.CodeAnalysis.CSharp.Workspaces/2.8.0": {
@@ -239,6 +277,37 @@
       },
       "Microsoft.NETCore.Platforms/3.0.0-preview3.19128.7": {},
       "Microsoft.NETCore.Targets/2.0.0": {},
+      "Microsoft.Rest.ClientRuntime/2.3.17": {
+        "dependencies": {
+          "NETStandard.Library": "2.0.3",
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "runtime": {
+          "lib/netstandard1.4/Microsoft.Rest.ClientRuntime.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.3.17.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard1.4/Microsoft.Rest.ClientRuntime.dll": {}
+        }
+      },
+      "Microsoft.Rest.ClientRuntime.Azure/3.3.18": {
+        "dependencies": {
+          "Microsoft.Rest.ClientRuntime": "2.3.17",
+          "NETStandard.Library": "2.0.3",
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "runtime": {
+          "lib/netstandard1.4/Microsoft.Rest.ClientRuntime.Azure.dll": {
+            "assemblyVersion": "3.0.0.0",
+            "fileVersion": "3.3.18.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard1.4/Microsoft.Rest.ClientRuntime.Azure.dll": {}
+        }
+      },
       "Microsoft.VisualStudio.Web.CodeGeneration/2.2.0": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "2.2.0",
@@ -563,39 +632,15 @@
           "System.Threading.Tasks": "4.3.0"
         }
       },
-      "CoreCallCustomVisionApi/1.0.0.0": {
+      "CV/1.0.0.0": {
         "runtime": {
-          "CoreCallCustomVisionApi.exe": {
+          "CV.exe": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
         },
         "compile": {
-          "CoreCallCustomVisionApi.exe": {}
-        }
-      },
-      "Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training/0.13.0.0": {
-        "runtime": {
-          "Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.dll": {
-            "assemblyVersion": "0.13.0.0",
-            "fileVersion": "0.13.0.0"
-          }
-        }
-      },
-      "Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction/0.12.0.0": {
-        "runtime": {
-          "Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.dll": {
-            "assemblyVersion": "0.12.0.0",
-            "fileVersion": "0.12.0.0"
-          }
-        }
-      },
-      "Microsoft.Rest.ClientRuntime/2.0.0.0": {
-        "runtime": {
-          "Microsoft.Rest.ClientRuntime.dll": {
-            "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.3.17.0"
-          }
+          "CV.exe": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.6": {
@@ -3619,6 +3664,20 @@
       "serviceable": false,
       "sha512": ""
     },
+    "Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction/0.12.0-preview": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SBMSyyyKMpkh7KHwmfVZ+DodnEbV2LINrj5vIiQG2aI4NSY/b8PIleFRMxRmeL2xKmy/nTMM0bm0QJFu8a+5qA==",
+      "path": "microsoft.azure.cognitiveservices.vision.customvision.prediction/0.12.0-preview",
+      "hashPath": "microsoft.azure.cognitiveservices.vision.customvision.prediction.0.12.0-preview.nupkg.sha512"
+    },
+    "Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training/0.13.0-preview": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-G+UW9X2nH/V9GuxgpEotssGfrM6B0RfNy7Fzla9lFc8Us2ylSVXrErvDAaZBXoNl4aqVY/gw/xiYg8ab0zNv6Q==",
+      "path": "microsoft.azure.cognitiveservices.vision.customvision.training/0.13.0-preview",
+      "hashPath": "microsoft.azure.cognitiveservices.vision.customvision.training.0.13.0-preview.nupkg.sha512"
+    },
     "Microsoft.CodeAnalysis.CSharp.Workspaces/2.8.0": {
       "type": "package",
       "serviceable": true,
@@ -3674,6 +3733,20 @@
       "sha512": "sha512-odP/tJj1z6GylFpNo7pMtbd/xQgTC3Ex2If63dRTL38bBNMwsBnJ+RceUIyHdRBC0oik/3NehYT+oECwBhIM3Q==",
       "path": "microsoft.netcore.targets/2.0.0",
       "hashPath": "microsoft.netcore.targets.2.0.0.nupkg.sha512"
+    },
+    "Microsoft.Rest.ClientRuntime/2.3.17": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-doR5rQunyyjpNxZFXOD3nAKPibouYPoCIw4nenSTeTBdBdgr0mwT7tZod9bRMEKFrKqP2/Q7uQK/9XRv9EPvYQ==",
+      "path": "microsoft.rest.clientruntime/2.3.17",
+      "hashPath": "microsoft.rest.clientruntime.2.3.17.nupkg.sha512"
+    },
+    "Microsoft.Rest.ClientRuntime.Azure/3.3.18": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-pCtem10PRQYvzRiwJVInsccsqB0NrTjW83NF3zWk1LpN3IS0AneZKq89RyogDT7mRMT1Li/mLY8N8kU6RAiK0g==",
+      "path": "microsoft.rest.clientruntime.azure/3.3.18",
+      "hashPath": "microsoft.rest.clientruntime.azure.3.3.18.nupkg.sha512"
     },
     "Microsoft.VisualStudio.Web.CodeGeneration/2.2.0": {
       "type": "package",
@@ -3808,22 +3881,7 @@
       "path": "system.linq.parallel/4.3.0",
       "hashPath": "system.linq.parallel.4.3.0.nupkg.sha512"
     },
-    "CoreCallCustomVisionApi/1.0.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training/0.13.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction/0.12.0.0": {
-      "type": "reference",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Microsoft.Rest.ClientRuntime/2.0.0.0": {
+    "CV/1.0.0.0": {
       "type": "reference",
       "serviceable": false,
       "sha512": ""

@@ -66,15 +66,6 @@ C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendSe
 C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\bin\Debug\netcoreapp2.2\BackendService.pdb
 C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\bin\Debug\netcoreapp2.2\BackendService.Views.dll
 C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\bin\Debug\netcoreapp2.2\BackendService.Views.pdb
-C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\bin\Debug\netcoreapp2.2\CoreCallCustomVisionApi.exe
-C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\bin\Debug\netcoreapp2.2\Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.dll
-C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\bin\Debug\netcoreapp2.2\Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.dll
-C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\bin\Debug\netcoreapp2.2\Microsoft.Rest.ClientRuntime.dll
-C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\bin\Debug\netcoreapp2.2\CoreCallCustomVisionApi.pdb
-C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\bin\Debug\netcoreapp2.2\CoreCallCustomVisionApi.exe.config
-C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\bin\Debug\netcoreapp2.2\Microsoft.Azure.CognitiveServices.Vision.CustomVision.Training.xml
-C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\bin\Debug\netcoreapp2.2\Microsoft.Azure.CognitiveServices.Vision.CustomVision.Prediction.xml
-C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\bin\Debug\netcoreapp2.2\Microsoft.Rest.ClientRuntime.xml
 C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\BackendService.csprojAssemblyReference.cache
 C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\BackendService.TagHelpers.input.cache
 C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\BackendService.TagHelpers.output.cache
@@ -110,3 +101,6 @@ C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendSe
 C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\BackendService.csproj.CopyComplete
 C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\BackendService.dll
 C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\obj\Debug\netcoreapp2.2\BackendService.pdb
+C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\bin\Debug\netcoreapp2.2\CV.exe
+C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\bin\Debug\netcoreapp2.2\CV.pdb
+C:\Users\maros\Documents\GitHub\challenge-server\ClassificationService\BackendService\bin\Debug\netcoreapp2.2\CV.exe.config
