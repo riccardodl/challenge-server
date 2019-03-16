@@ -1,4 +1,6 @@
 ﻿using BackendService.Models;
+using BackendService.Models.ImageUploadViewModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
@@ -14,16 +16,18 @@ using System.Web.Http;
 
 namespace BackendService.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/")]
     public class CustomVisionServiceController : Controller
     {
 
         private readonly ControllerDataRepository _repository;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public CustomVisionServiceController(BackendService.Controllers.ControllerDataRepository repository)
+        public CustomVisionServiceController(BackendService.Controllers.ControllerDataRepository repository, IHostingEnvironment environment)
         {
 
             _repository = repository;
+            _hostingEnvironment = environment;
         }
         // GET: api/<controller>
         [HttpGet]
@@ -47,12 +51,12 @@ namespace BackendService.Controllers
                 var response = await _repository.MakePrediction(ship.Value, rope.Value, img.Value);
                 if (response.Key != null)
                 {
-                    var target = await _repository.GetRopeAsync(ship.Value, rope.Value);                    
+                    var target = await _repository.GetRopeAsync(ship.Value, rope.Value);
                     Enum.TryParse(response.Key, out Tag t);
                     target.Tag = t;
                     target.Probability = response.Value;
                     return Ok(response);
-                }               
+                }
                 return NoContent();
             }
             return NotFound();
@@ -60,27 +64,31 @@ namespace BackendService.Controllers
 
         // POST api/<controller>/shipid => Body: Image
         [HttpPost("[controller]/{ship:int?}/{rope:int?}")]
-        public async Task<IActionResult> Post(int ship, int? rope, [FromBody]Image img)
+        public async Task<IActionResult> Post([FromHeader] int ship, [FromHeader] int? rope, [FromBody] CreateImage src)
         {
-            if (Request.HasFormContentType && Request.ContentType == "application/octet-stream")
+            if (src == null)
             {
-                MemoryStream stream = new MemoryStream();
-                await Request.Body.CopyToAsync(stream);
+                return BadRequest();
+            }
+            var fileName = Path.GetFileName(src.Image.FileName);
+            var contentType = src.Image.ContentType;
 
-                /*
-                  System.IO.Image image = Image.FromStream(stream);
-                  var testName = content.Headers.ContentDisposition.Name;
-                  String filePath = HostingEnvironment.MapPath("~/Images/");
-                  String[] headerValues = (String[])Request.Headers.GetValues("UniqueId");
-                  String fileName = headerValues[0] + ".jpg";
-                  String fullPath = Path.Combine(filePath, fileName);
-                  image.Save(fullPath);*/
-                var res = await _repository.AddImageAsync(ship, rope, img);
-                if (!res)
+            if (contentType == "multipart/form-data")
+            {
+                if (src.Image != null)
                 {
-                    return NotFound();
+                    var uniqueFileName = _repository.NewFilename(src.Image.FileName);
+                    var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "images");
+                    var filePath = Path.Combine(uploads, uniqueFileName);
+                    src.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+
+                    var res = await _repository.AddImageAsync(ship, rope, src);
+                    if (!res)
+                    {
+                        return NotFound();
+                    }
+                    return Ok();
                 }
-                return Ok();
             }
             return BadRequest();
         }

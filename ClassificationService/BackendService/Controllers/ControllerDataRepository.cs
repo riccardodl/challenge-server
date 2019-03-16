@@ -8,6 +8,8 @@ using System.Net.Http;
 using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.IO;
+using BackendService.Models.ImageUploadViewModels;
 
 namespace BackendService.Controllers
 {
@@ -38,9 +40,10 @@ namespace BackendService.Controllers
             return await _context.Rope.Where(r=>r.ShipID == shipid && r.RopeID == ropeid).SingleAsync();
         }
 
-        public async Task<bool> AddImageAsync(int ship, int? rope, Image img)
+        public async Task<bool> AddImageAsync(int ship, int? rope, CreateImage src)
         {
             Rope TargetRope;
+            Image img = FromViewModel(src);
             if (img.RawImage != null)
             {                
                 if (rope==null)
@@ -109,7 +112,8 @@ namespace BackendService.Controllers
                     {
                         var tmp = res.Split(": ");
                         
-                        predictionRes.Add(tmp[0].Remove(0,1), Convert.ToDouble(tmp[1].Replace("%","")));
+                        
+predictionRes.Add(tmp[0].Remove(0,1), Convert.ToDouble(tmp[1].Replace("%","")));
                     }
                 }
             }
@@ -120,6 +124,19 @@ namespace BackendService.Controllers
             }
             return new KeyValuePair<string, double>();
 
+        }
+
+        public string NewFilename(string filename)
+        {
+            filename = Path.GetFileName(filename);
+            return Path.GetFileNameWithoutExtension(filename)
+                      + "_"+ Guid.NewGuid().ToString().Substring(0, 6)
+                      + Path.GetExtension(filename);
+        }
+
+        private Image FromViewModel(CreateImage src)
+        {
+            return new Image();//TODO
         }
     }
 }
