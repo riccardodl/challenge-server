@@ -28,7 +28,7 @@ namespace BackendService.Controllers
 
         public async Task<List<Ship>> GetShipsAsync()
         {
-            return await _context.Ship.ToListAsync();
+            return await _context.Ship.Include(s=>s.Ropes).AsNoTracking().ToListAsync();
         }
         public async Task<Ship> GetShipAsync(int id)
         {
