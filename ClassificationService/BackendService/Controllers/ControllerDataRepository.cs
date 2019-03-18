@@ -28,7 +28,7 @@ namespace BackendService.Controllers
 
         public async Task<List<Ship>> GetShipsAsync()
         {
-            return await _context.Ship.Include(s=>s.Ropes).AsNoTracking().ToListAsync();
+            return await _context.Ship.ToListAsync();
         }
         public async Task<Ship> GetShipAsync(int id)
         {
@@ -40,10 +40,10 @@ namespace BackendService.Controllers
             return await _context.Rope.Where(r=>r.ShipID == shipid && r.RopeID == ropeid).SingleAsync();
         }
 
-        public async Task<bool> AddImageAsync(int ship, int? rope, CreateImage src)
+        public async Task<bool> AddImageAsync(int ship, int? rope, Image img)
         {
             Rope TargetRope;
-            Image img = FromViewModel(src);
+            
             if (img.RawImage != null)
             {                
                 if (rope==null)
@@ -134,9 +134,10 @@ predictionRes.Add(tmp[0].Remove(0,1), Convert.ToDouble(tmp[1].Replace("%","")));
                       + Path.GetExtension(filename);
         }
 
-        private Image FromViewModel(CreateImage src)
+        private Image FromByteArray(CreateImage src)
         {
             return new Image();//TODO
         }
+
     }
 }

@@ -2,6 +2,7 @@
 using BackendService.Models.ImageUploadViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 using System;
@@ -16,7 +17,7 @@ using System.Web.Http;
 
 namespace BackendService.Controllers
 {
-    [Route("api/")]
+    [Route("api/[controller]/")]
     public class CustomVisionServiceController : Controller
     {
 
@@ -43,7 +44,7 @@ namespace BackendService.Controllers
         }
 
         // GET api/<controller>/5/3/4
-        [HttpGet("[controller]/{ship:int?}/{rope:int?}/{img:int?}")]
+        [HttpGet("{ship:int?}/{rope:int?}/{img:int?}")]
         public async Task<ActionResult<string>> Get(int? ship, int? rope, int? img)
         {
             if (ship != null && rope != null && img != null)
@@ -63,32 +64,37 @@ namespace BackendService.Controllers
         }
 
         // POST api/<controller>/shipid => Body: Image
-        [HttpPost("[controller]/{ship:int?}/{rope:int?}")]
-        public async Task<IActionResult> Post([FromHeader] int ship, [FromHeader] int? rope, [FromBody] CreateImage src)
+        [HttpPost("{ship:int}/{rope:int?}")]
+        public async Task<IActionResult> Post([FromHeader] int ship, [FromHeader] int? rope)//,[FromForm] IFormFile files)
         {
-            if (src == null)
+            if (Request.HasFormContentType && Request.ContentType.Contains("multipart/form-data"))
             {
-                return BadRequest();
-            }
-            var fileName = Path.GetFileName(src.Image.FileName);
-            var contentType = src.Image.ContentType;
+                var m = Request.Query;
+                var myImg = Request.Form.Files.GetFile("file");
+                var stream = myImg.OpenReadStream();
 
-            if (contentType == "multipart/form-data")
-            {
-                if (src.Image != null)
+                int.TryParse(Request.Form["ship"].ToString(),out ship);
+                rope = ToNullableInt(Request.Form["rope"]);
+                
+                BinaryReader binaryReader = new BinaryReader(stream);
+                var imgbytes = binaryReader.ReadBytes((int)stream.Length);
+
+                string filenameWithoutPath = Path.GetFileNameWithoutExtension(myImg.FileName);
+                var uniqueFileName = _repository.NewFilename(filenameWithoutPath);
+                var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "images");
+                var filePath = Path.Combine(uploads, uniqueFileName);
+
+                if (imgbytes.Length > 0)
                 {
-                    var uniqueFileName = _repository.NewFilename(src.Image.FileName);
-                    var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "images");
-                    var filePath = Path.Combine(uploads, uniqueFileName);
-                    src.Image.CopyTo(new FileStream(filePath, FileMode.Create));
+                    System.IO.File.WriteAllBytes(filePath + Path.GetExtension(myImg.FileName), imgbytes);
 
-                    var res = await _repository.AddImageAsync(ship, rope, src);
-                    if (!res)
+                    Image img = new Image() { RawImage = imgbytes };
+                    if( await _repository.AddImageAsync(ship,rope, img))
                     {
-                        return NotFound();
+                        return Ok();
                     }
-                    return Ok();
                 }
+                return NotFound();
             }
             return BadRequest();
         }
@@ -119,5 +125,14 @@ namespace BackendService.Controllers
                 return NotFound();
             }
         }
+
+        public int? ToNullableInt(string s)
+        {
+            int i;
+            if (int.TryParse(s, out i)) return i;
+            return null;
+        }
+
     }
+
 }
