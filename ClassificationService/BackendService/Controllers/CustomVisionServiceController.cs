@@ -42,7 +42,7 @@ namespace BackendService.Controllers
             }
             return Ships;
         }
-
+        
         // GET api/<controller>/5/3/4
         [HttpGet("{ship:int?}/{rope:int?}/{img:int?}")]
         public async Task<ActionResult<string>> Get(int? ship, int? rope, int? img)
@@ -64,7 +64,7 @@ namespace BackendService.Controllers
         }
 
         // POST api/<controller>/shipid => Body: Image
-        [HttpPost("{ship:int}/{rope:int?}")]
+        [HttpPost("{ship:int}/{rope:int?}/")]
         public async Task<IActionResult> Post([FromHeader] int ship, [FromHeader] int? rope)//,[FromForm] IFormFile files)
         {
             if (Request.HasFormContentType && Request.ContentType.Contains("multipart/form-data"))
